@@ -15,16 +15,35 @@ vk = session.get_api()
 
 
 def get_user_status(user_id: int) -> str:
+    """
+    Функция для получения статуса пользователя.
+
+    :param user_id: int, уникальный ID пользователя VK.
+    :return: str, вовзращает текст статуса пользователя.
+    """
     status = session.method('status.get', {'user_id': user_id})
     return status['text']
 
 
 def set_user_status(text: str) -> None:
+    """
+    Функция для того, чтобы задать статус пользователя
+
+    :param text: str, Текст, который вы хотите задать в качестве статуса пользователя.
+    :return: None
+    """
     session.method('status.set', {'text': text})
     print('Статус установлен')
 
 
 def get_all_friends(user_id: int, number_of_friends: int) -> None:
+    """
+    Функция для получения списка всех друзей заданного пользователя.
+
+    :param user_id: int, уникальный ID пользователя VK.
+    :param number_of_friends: int, Количество людей, которое вы бы хотели вывести.
+    :return: None
+    """
     friends = session.method('friends.get', {'user_id': user_id, "count": number_of_friends})
 
     print('| User-ID | Имя | Фамилия | Статус |')
@@ -40,6 +59,12 @@ def get_all_friends(user_id: int, number_of_friends: int) -> None:
 
 
 def get_all_subscriptions(user_id: int) -> None:
+    """
+    Функция для получения списка всех подписок пользователя
+
+    :param user_id: int, уникальный ID пользователя VK.
+    :return: None
+    """
     subscriptions = session.method('users.getSubscriptions',
                                    {'user_id': user_id})
     print(f'Количество подписок на людей: {subscriptions["users"]["count"]}')
@@ -61,6 +86,12 @@ def get_all_subscriptions(user_id: int) -> None:
 
 
 def get_followers(user_id: int) -> None:
+    """
+    Функция для получения списка подписчиков пользователя
+
+    :param user_id: int, уникальный ID пользователя VK.
+    :return: None
+    """
     followers = session.method('users.getFollowers', {"user_id": user_id})
     print(f'Количество ваших подписчиков: {followers["count"]}')
     print('Ваши подписчики:')
@@ -71,7 +102,12 @@ def get_followers(user_id: int) -> None:
 
 
 def get_album_with_video(user_id: int) -> None:
+    """
+    Функция для получения списка видео альбомов пользователя.
 
+    :param user_id: int, уникальный ID пользователя VK.
+    :return: None
+    """
     albums = session.method('video.getAlbums', {"owner_id": user_id})
     print(f'Количество ваших видео альбомов: {albums["count"]}')
     print('| Album-ID | Название Альбома |')
